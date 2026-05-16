@@ -1,0 +1,17 @@
+#!/bin/bash
+yum install git -y
+yum install java-21* -y
+cd /opt
+wget https://dlcdn.apache.org/maven/maven-3/3.9.15/binaries/apache-maven-3.9.15-bin.tar.gz
+tar zxvf apache-maven-3.9.15-bin.tar.gz
+mv apache-maven-3.9.15 maven
+cd ~
+echo "JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto.x86_64" >> .bash_profile
+echo "M2_HOME=/opt/maven" >> .bash_profile
+echo "M2=/opt/maven/bin" >> .bash_profile
+echo "PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2" >> >> .bash_profile
+echo "export PATH" >> .bash_profile
+. .bash_profile
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/rpm-stable/jenkins.repo
+yum install jenkins -y
+systemctl enable --now
